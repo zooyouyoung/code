@@ -2,8 +2,8 @@
 ***
 ## 一、运行效果图
 
-- 主菜单：
-<img src="/images/img6.png" width="30%"> 
+### 主菜单：
+<img src="images/img6.png" width="30%"> 
 ```cpp
 ********************************
 ******** 0.终止程序操作 ********
@@ -14,8 +14,8 @@
 ********************************
 ```
 
-- 输入1时:
-<img src="/images/img11.png" width="30%">     <img src="/images/img1.png" width="30%">
+### (入库)输入1时:
+<img src="images/img11.png" width="30%">     <img src="images/img1.png" width="30%">
 ```cpp
 ********************************
 ******** 0.终止程序操作 ********
@@ -47,8 +47,8 @@
 《ss》入库成功即将返回目录，请按任意键继续...
 ```
 
-- 输入2时:
-<img src="/images/img2.png" width="30%">      <img src="/images/img22.png" width="30%">
+### (借阅)输入2时:
+<img src="images/img2.png" width="30%">      <img src="images/img22.png" width="30%">
 ```cpp
 ********************************
 ******** 0.终止程序操作 ********
@@ -87,8 +87,8 @@
 即将返回目录，请按任意键继续...
 ```
 
-- 输入3时:
-<img src="/images/img3.png" width="30%">       <img src="/images/img33.png" width="30%">
+### (归还)输入3时:
+<img src="images/img3.png" width="30%">       <img src="images/img33.png" width="30%">
 ```cpp
 ********************************
 ******** 0.终止程序操作 ********
@@ -126,8 +126,8 @@
 即将返回目录，请按任意键继续...
 ```
 
-- 输入4时:
-<img src="/images/img4.png" width="30%"> 
+### (查询)输入4时:
+<img src="images/img4.png" width="30%"> 
 ```cpp
 ********************************
 ******** 0.终止程序操作 ********
@@ -164,13 +164,13 @@
 即将返回目录，请按任意键继续...
 ```
 
-- 输入0时:
-<img src="/images/img.jpg" width="30%">
+### (退出)输入0时:
+<img src="images/img.jpg" width="30%">
 ```cpp
 ```
 
-- 输入其它时:
-<img src="/images/img5.png" width="30%">
+### 输入其它时:
+<img src="images/img5.png" width="30%">
 ```cpp
 请仔细阅读目录，输入恰当内容(0/1/2/3/4)
 ********************************
