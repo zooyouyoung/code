@@ -167,12 +167,12 @@ Markdown的使用者：
 + Apollo
 + Moodle
 + Reddit
-+ 等等
++ ......
 
 ## 5.扩展(HTML):
 Markdown的语法不能完全满足开发，但好在Markdown支持HTML,以下列举一些Markdown中高频使用的HTML语法
 
-### 5.1文本样式（改色、改字体、组合样式）
+### 5.1文本样式（改色、改字体、组合样式）(font/span) 
 ```cpp
 <!-- 1. <font>标签：快速改颜色、大小、字体 -->
 <font color="red" size="3">红色3号字（size取值1-7，默认3）</font>
@@ -241,21 +241,20 @@ Markdown的语法不能完全满足开发，但好在Markdown支持HTML,以下�
 </ol>
 ```
 
-## 6. 尝试一下
+## 6. Try it（again and again)
 + **Chrome**下的插件诸如`stackedit`与`markdown-here`等非常方便，也不用担心平台受限。
 + **在线**的dillinger.io评价也不错 
 + **Linux**下的ReText不错。    
 
-**当然，最终境界永远都是笔下是语法,自己的技术**
+***Surely , most importance is technology and program***
 
 ****
 **注意**：不同的Markdown解释器或工具对相应语法（扩展语法）的解释效果不尽相同，具体可参见工具的使用说明。
 虽然有人想出面搞一个所谓的标准化的Markdown，[没想到还惹怒了健在的创始人John Gruber]
 (http://blog.codinghorror.com/standard-markdown-is-now-common-markdown/ )。
 ****
-以上基本是所有traditonal markdown的语法。
 
-## 其它：
+## 7. Others：
 列表的使用(非traditonal markdown)：
 
 用`|`表示表格纵向边界，表头和表内容用`-`隔开，并可用`:`进行对齐设置，两边都有`:`则表示居中，若不加`:`则默认左对齐。
