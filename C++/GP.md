@@ -1,12 +1,124 @@
 # Generic Programming
 ## 一、Template/Class
+### 1. Function Template(函数模板)
++ 定义格式 ：`template <typename T1, typename T2,...>` `(typename`<=>`class`)
++ 关键特性：使用时自动推导类型,也可手动指定类型(避免推导歧义)
++ 避坑点：自动推导仅看 “函数参数”，与返回值无关。若参数类型不一致，推导会失败(需手动指定类型)
+```cpp
+template <typename T, typename U> 
+T print_info(T id, U name)
+{ 
+    cout << "ID：" << id << "，姓名：" << name << endl;
+    return id;
+}
+```
+### 2. Class Template(类模板)
++ 定义格式：`template <typename T,...>` 紧跟类定义，类内成员
++ 关键特性：使用时必须手动指定类型(无法像函数模板一样自动推导)
++ 避坑点：类模板的 “成员函数” 若在类外定义，需重新写`template <typename T,...>`声明，否则编译器无法识别`T`
+```cpp
+template <typename T> 
+class Student
+{
+private:
+    T id;
+    string name;
+public:
+    Student(T id_val, string name_val); 
+    void show_info();
+};
+/* 成员函数类外定义：必须重新写 template <typename T>，否则识别不了T */
+template <typename T> 
+Student<T>::Student(T id_val, string name_val)// 构造函数，类名后加 <T>
+{
+    id = id_val;
+    name = name_val;
+}
+template <typename T> 
+void Student<T>::show_info()
+{ 
+    cout << "学号：" << id << "，姓名：" << name << endl;
+}
+int main(){return 0;}
+```
+### 3. 模板的进阶特征
+#### 1. Template Specialization(模板特化)
+为特殊类型定制逻辑
+作用：当模板对某类 “特殊类型”（如 string、指针）的逻辑不适用时，为该类型单独写定制代码（比如通用比较函数，对 string 不能比地址，需比字符串内容）。
+分类：全特化（为所有类型占位符指定具体类型）、偏特化（仅为部分类型占位符指定具体类型，类模板专属，函数模板不支持偏特化）。
+```cpp
+#include <iostream>
+#include <string>
+#include <cstring> // 字符串比较函数 strcmp 依赖
+using namespace std;
 
+// 1. 通用模板：比较任意类型（默认比值/地址）
+template <typename T> 
+bool is_equal(T a, T b) {
+    cout << "通用模板调用：";
+    return a == b;
+}
 
+// 2. 全特化：为 T=string 定制逻辑（比较字符串内容，而非地址）
+template <> // 全特化标志：空的 template 括号
+bool is_equal<string>(string a, string b) { // 明确指定 T=string
+    cout << "string 特化模板调用：";
+    return a == b; // string 类重载了 ==，直接比内容
+}
 
+// 3. 全特化：为 T=const char*（C风格字符串）定制逻辑
+template <> 
+bool is_equal<const char*>(const char* a, const char* b) {
+    cout << "const char* 特化模板调用：";
+    return strcmp(a, b) == 0; // 用 strcmp 比内容，避免比地址
+}
 
+int main() {
+    cout << is_equal(10, 10) << endl;          // 通用模板，输出1（true）
+    cout << is_equal("apple", "apple") << endl;// const char* 特化，输出1
+    cout << is_equal(string("banana"), string("banana")) << endl; // string 特化，输出1
+    return 0;
+}
+```
+#### 2. Non-type Template Parameters(非类型模板参数)
+用 “值” 作为模板参数
+作用：模板参数不仅可以是 “类型（typename T）”，还可以是 “固定值（如 int、char、枚举）”，使用时传入具体值，适合 “固定长度 / 固定阈值” 的通用场景（如固定大小的数组容器）。
+避坑点：非类型参数的 “值” 必须是 “编译期常量”（如字面量 5、宏定义、const 常量），不能是运行时才确定的值（如用户输入的变量）。
+```cpp
+#include <iostream>
+using namespace std;
 
+// 1. 模板参数：T（类型）、SIZE（非类型，int 值，数组长度）
+template <typename T, int SIZE> 
+class FixedArray {
+private:
+    T arr[SIZE]; // 数组长度为 SIZE（编译期确定，无需动态扩容）
+public:
+    void set_val(int idx, T val) {
+        if (idx >= 0 && idx < SIZE) arr[idx] = val;
+    }
+    void print_arr() {
+        for (int i = 0; i < SIZE; i++) cout << arr[i] << " ";
+        cout << endl;
+    }
+};
 
+int main() {
+    // 2. 使用：传入类型 T=int、非类型参数 SIZE=3（数组长度3）
+    FixedArray<int, 3> arr1;
+    arr1.set_val(0, 10);
+    arr1.set_val(1, 20);
+    arr1.print_arr(); // 输出：10 20 0
 
+    // 传入 T=double、SIZE=5（数组长度5）
+    FixedArray<double, 5> arr2;
+    arr2.set_val(0, 3.14);
+    arr2.set_val(2, 5.67);
+    arr2.print_arr(); // 输出：3.14 0 5.67 0 0
+    return 0;
+}
+```
+#### 3. Nested Template(模板的嵌套使用)
 ## 二、STL
 ### 1. Containers
 ```cpp
