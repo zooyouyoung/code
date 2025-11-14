@@ -29,7 +29,7 @@ public:
 };
 /* 成员函数类外定义：必须重新写 template <typename T>，否则识别不了T */
 template <typename T> 
-Student<T>::Student(T id_val, string name_val)// 构造函数，类名后加 <T>
+Student<T>::Student(T id_val, string name_val)
 {
     id = id_val;
     name = name_val;
@@ -45,7 +45,7 @@ int main(){return 0;}
 #### 1. Template Specialization(模板特化)
 为特殊类型定制逻辑
 + 作用：当模板对某类 “特殊类型”(如string、指针)的逻辑不适用时，为该类型单独写定制代码(比如通用比较函数,对`string`不能比地址，需比字符串内容)
-+ 分类：**全特化**(为所有类型占位符指定具体类型)、**偏特化**(仅为部分类型占位符指定具体类型，类模板专属，函数模板不支持偏特化)
++ 分类：（1）**全特化**(为所有类型占位符指定具体类型)；（2）**偏特化**(仅为部分类型占位符指定具体类型，类模板专属，函数模板不支持偏特化)
 ```cpp
 // 1. 通用模板：比较任意类型（默认比值/地址）
 template <typename T> 
@@ -77,7 +77,7 @@ int main() {
 ```
 #### 2. Non-type Template Parameters(非类型模板参数)
 用 “值” 作为模板参数
-+ 作用：模板参数不仅可以是 “类型`typename T`”，还可以是 “固定值(如`int``char`、枚举),使用时传入具体值，适合**“固定长度 / 固定阈值”**的通用场景
++ 作用：模板参数不仅可以是 “类型`typename T`”，还可以是 “固定值(如`int` `char`、枚举),使用时传入具体值，适合“**固定长度 / 固定阈值**”的通用场景
 + 避坑点：非类型参数的 “值” 必须是 “编译期常量”(如字面量5,宏定义,`const`常量),不能是运行时才确定的值
 ```cpp
 // 1. 模板参数：T（类型）、SIZE（非类型，int 值，数组长度）
@@ -111,6 +111,9 @@ int main() {
 }
 ```
 #### 3. Nested Template(模板的嵌套使用)
+```cpp
+vector<vector> point;
+```
 ## 二、STL
 ### 1. Containers
 ```cpp
