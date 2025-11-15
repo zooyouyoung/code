@@ -388,5 +388,42 @@ int main() {
 }
 ```
 ### 4. Functors
+函数对象是 “重载了operator()的类",调用时像函数一样(e.g:`greater<int>()`)，核心用于定制算法的逻辑(`sort`的排序规则、`find_if`的查找条件)
+```cpp
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+/* 1. 自定义函数对象：查找“大于10的元素” */
+class GreaterThan10 {
+public:
+    /* 重载operator()：参数是容器元素，返回bool（满足条件返回true） */
+    bool operator()(int num) {
+        return num > 10;
+    }
+};
+
+int main() {
+    vector<int> vec = {5, 12, 8, 15, 3};
+
+    /* 2. 用函数对象定制find_if的查找条件（查找第一个>10的元素） */
+    /* GreaterThan10()：创建函数对象的临时实例 */
+    auto it = find_if(vec.begin(), vec.end(), GreaterThan10());
+    if (it != vec.end()) {
+        cout << "第一个大于10的元素：" << *it << endl; // 输出：12
+    }
+
+    /* 3. 用匿名函数（lambda，C++11及以上）简化（无需自定义类，更简洁） */
+    auto it2 = find_if(vec.begin(), vec.end(), [](int num) {
+        return num > 10; // 匿名函数，功能和GreaterThan10一致
+    });
+    if (it2 != vec.end()) {
+        cout << "lambda找到第一个大于10的元素：" << *it2 << endl; // 输出：12
+    }
+
+    return 0;
+}
+```
 ### 5. Adapters
 ### 6. Allocators
