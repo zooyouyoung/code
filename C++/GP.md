@@ -322,10 +322,70 @@ sort(iterator beg , iterator end);
 ```
 ***
 #### 1.4 list
++ 
 ***
-#### 1.5 map
+#### 1.5 set
 ***
-#### 1.6 set
+#### 1.6 map
++ 简介：map中元素都是pair，pair中都第一个元素为key(键值)，起索引作用，第二个元素为value(实值)。所有元素都会根据键值自动排序
++ 本质：关联式容器，底层结构用二叉树实现
++ 1.6-1 构造/赋值
+```cpp
+map<int,int> m1 = {(1,10),(2,20),(3,30)}; //  默认构造
+map<int,int> m2(m1); // 拷贝构构造
+map<int,int>m3;
+m3 = m2; // operator=
+```
++ 1.6-2 大小/交换
+```cpp
+map<int,int> m1 = {(1,10),(2,20),(3,30),(4,40)};
+m1.size();
+m1.empty();
+map<int,int> m2;
+m2.swap(m1);
+```
++ 1.6-3 插入/删除
+```cpp
+map<int,int> m1 = {(1,10),(2,20),(3,30),(4,40)};
+/* insert() */
+m1.insert(pair<int,int>(5,55)); 
+m1.insert(make_pair(6,65));
+m1.insert(map<int,int>::value_type(7,66));
+m1[0] = 11; //如果没有value，但是用的话，会创建value=0的元素(建议用于索引，不建议插入)
+/* 删除 */
+m1.erase(m1.begin(),m1.end()-2); // m1.begin()/m1.end()-2 -> key的值(可以只传第一个参)
+m1.clear();
+```
++ 1.6-4 查找/统计
+```cpp
+map<int,int> m1 = {(1,22),(2,23),(3,44)};
+map<int,int>::iterator pos = m1.find(key); // 返回iterator
+m1.count(key); // return 1/0 -> key具有唯一性
+```
++ 1.6-5 排序
+利用仿函数(参考下面的Functors)
+```cpp
+#include<map>
+/* 降序 */
+class Mycompare{
+public:
+    bool operator()(int v1 , int v2){
+        return v1 > v2 ;
+    }
+}
+int main(){
+    map<int,int,Mycompare> m1;
+    m1.insert(make_pair(1,10));
+    m1.insert(make_pair(2,20));
+    m1.insert(make_pair(3,30));
+    m1.insert(make_pair(4,40));
+    m1.insert(make_pair(5,50));
+
+    for(map<int,int,Mycompare>::interator it = m1.begin() ; it != m.end() ; it++){
+        cout << "key:" << it->first << "value:" << (*it).second << endl;
+    }
+}
+```
 ***
 ### 2. Algorithms
 + `sort()`(排序)
