@@ -59,7 +59,7 @@ int main() {
 #### 6. `#error`
 + 作用：强制报错，检测非法条件 
 + 格式：`#error 错误提示信息`(错误提示信息不加"")
-#### 7. 预定义宏
+#### 7. predefined macros
 |预定义宏|核心作用|类型|代码实例（输出效果）|
 |:---:|--------|:----:|--------|
 |`__FILE__`|返回当前源文件的 “完整路径 + 文件名”|字符串常量|cout << __FILE__ → D:\code\test.cpp|
@@ -68,7 +68,7 @@ int main() {
 |`__TIME__`|返回编译时的 “时间”|字符串常量|cout << __TIME__ → 15:30:45|
 |`__cplusplus`|返回 C++ 标准版本号（判断编译器是否支持 C++xx）|整数常量|cout << __cplusplus → 201703（C++17）|
 
-**ATTENTIONS** : 预定义宏的值是 “编译期确定” ，不是运行时动态变化的
++ **注意** : 预定义宏的值是 “编译期确定” ，不是运行时动态变化的
 ### *Header Files*
 #### 1.`<iostream>` : input/output;
 #### 2.`<cstdio>` : including：scanf()/printf()/...(c语言的all);
@@ -214,7 +214,7 @@ while(1/true){};
 while(cin >> str){};
 while(int n = 0 ; n < 12){}; // while(循环变量的定义+初始化)"C++17 及以上支持",变量仅在循环范围内有效(避免污染外部代码)
 ```
-**ATTENTION** : 表达式不能是 “非整数型”：e.g:switch(3.14)（double）、switch("abc")（string),都会编译报错，只能用`int`、`char`、`enum`等整数型
++ **注意** : 表达式不能是 “非整数型”：e.g:switch(3.14)（double）、switch("abc")（string),都会编译报错，只能用`int`、`char`、`enum`等整数型
 #### 4. 跳转
 ##### 4.1 `break`
 作用：跳出当前循环
@@ -231,10 +231,117 @@ goto flag;
 作用：跳出当前函数，若函数有返回值则返回函数值
 
 ## 四、Functions
-### 
+### 1. 函数的定义与调用
+```cpp
+void name(){} // 方式1：无参无返
+int name(){return 0;} // 方式2：无参有返
+void name(int a , int b , ...){} // 方式3：有参无返
+string name(char* ch){return "";} // 方式4：有参有返
+```
+### 2. 函数核心特性
+#### 2.1 函数声明与定义分离(方便维护)
++ 声明：告诉编译器 “函数存在及格式”，写在 main 前或头文件中；
++ 定义：提供 “函数具体实现”，写在`main`后或单独的`.cpp`文件中
+```cpp
+#include <iostream>
+using namespace std;
+/* 函数声明（关键：返回值、函数名、参数类型/顺序必须和定义一致）*/
+int max_val(int a, int b); // 参数名a/b可省略，写成int max_val(int, int);
+int main() {
+    cout << "max(25,18)=" << max_val(25, 18) << endl;
+    return 0;
+}
 
+/* 函数定义（实现逻辑，参数名可和声明一致或重新命名）*/
+int max_val(int x, int y) {
+    return x > y ? x : y;
+}
+```
+#### 2.2 默认参数（简化常用场景的调用）
++ 定义：声明时给参数加 “默认值”，默认参数必须放在"**参数列表末尾**"
++ 调用：可传入全部实参（覆盖默认值），也可省略默认参数的实参（用默认值）；
++ **注意**：默认值仅能在 “声明中写”，定义中不能重复写
+```cpp
+#include <iostream>
+using namespace std;
 
+/* 函数声明：默认参数必须在尾部 */
+int calculate_total(int count, int price = 10);
+int main() {
+    // 调用方式1：省略默认参数
+    cout << "5件商品总价：" << calculate_total(5) << endl;
+    // 调用方式2：传入全部实参，覆盖默认值
+    cout << "5件商品（单价15）总价：" << calculate_total(5, 15) << endl;
+    return 0;
+}
 
-
-
-
+/* 函数定义：参数price不能再写默认值（否则报错）*/
+int calculate_total(int count, int price) {
+    return count * price;
+}
+```
+#### 2.3 函数重载
++ 定义：多个函数 “*函数名相同*”，但"*参数列表不同*"（参数个数不同、参数类型不同、参数顺序不同）
++ **注意**：仅返回值不同，不能构成重载
+```cpp
+```
+#### 2.4 函数模板
++ 定义：用 template <typename T> 定义 “类型占位符 T”，函数的参数、返回值用 T 代替，无需为不同类型写多个重载函数
++ 调用：自动推导类型（根据实参），或手动指定类型（避免歧义）
+```cpp
+```
+### 3. 函数进阶用法
+#### 3.1 递归函数（函数调用自身，解决 “分治” 问题）
++ 定义：函数体内调用自身，必须有 “终止条件”（否则无限递归，栈溢出崩溃）
++ 场景：阶乘、斐波那契数列、二叉树遍历
+代码实例：计算 n 的阶乘（n! = n*(n-1)*...*1）
+```cpp
+#include <iostream>
+using namespace std;
+// 递归函数：计算n的阶乘
+int factorial(int n) {
+    if (n == 1) {
+        return 1;
+    }
+    // 递归逻辑：n! = n * (n-1)!
+    return n * factorial(n - 1);
+}
+int main() {return 0;}
+```
+#### 3.2 内联函数（inline，提升简单函数的执行效率）
++ 定义：在函数声明/定义前加`inline`关键字，编译器会将 “函数调用” 替换为“函数体代码”
++ **注意**：仅适合 “逻辑简单、代码量少” 的函数（如加法、比较），复杂函数（多循环/多分支）加`inline`无效（编译器会忽略）
+```cpp
+#include <iostream>
+using namespace std;
+// 内联函数：简单比较逻辑，加inline提升效率
+inline int min_val(int a, int b) {
+    return a < b ? a : b;
+}
+int main() {
+    // 调用时，编译器会替换为：cout << (3 < 5 ? 3 : 5) << endl;
+    cout << "min(3,5)=" << min_val(3, 5) << endl;
+    return 0;
+}
+```
+#### 3.3 函数指针（指向函数的指针，存储函数地址）
++ 定义：格式为 “返回值类型 (* 指针名)(参数类型列表)”，指针指向 “返回值和参数匹配” 的函数
++ 场景：动态切换函数（如根据条件调用不同的计算函数）、回调函数。
+```cpp
+#include <iostream>
+using namespace std;
+// 两个普通函数（返回值、参数类型一致，可被同一函数指针指向）
+int add(int a, int b) { return a + b; }
+int sub(int a, int b) { return a - b; }
+int main() {
+    // 1. 定义函数指针：指向“返回int、接收两个int参数”的函数
+    int (*func_ptr)(int, int);
+    // 2. 指针指向add函数（函数名即函数地址，无需&）
+    func_ptr = add;
+    cout << "10+20=" << func_ptr(10, 20) << endl;
+    // 3. 指针指向sub函数（切换指向的函数）
+    func_ptr = sub;
+    cout << "10-20=" << func_ptr(10, 20) << endl;
+    return 0;
+}
+```
