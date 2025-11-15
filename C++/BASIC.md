@@ -59,25 +59,19 @@ scanf("%o/%x/%d", &num)
 - 排序:`std::sort()` // sort(nums.begin(), nums.end())
 - 反转:`std::reverse()` // reverse(s.begin(), s.end())
 - 查找:`std::find()` // find(nums.begin(), nums.end(), 5)
-#### 5. `<cmath>`/`<climits>`/`<cstdlib>`(数值相关: 常量、绝对值、类型转换) :
-- `<climits>` ：
-> `std::INT_MAX`（int 最大值）
-> 
-> `std::INT_MIN`（int 最小值）
->
-> `std::UINT_MAX`（unsigned int 最大值）
-- `<cmath>` :
-> `int std::abs(int x)` // 整数绝对值
-> 
-> `double std::fabs(double x)` // 小数绝对值
->
-> `double std::sqrt(double x)` // 平方根
-> 
-> `double std::pow(double x , double y)` // x^y
-- `<cstdlib>` :
-> `int std::atoi(const char* c)` // 字符串转整数
-> 
-> `std::system("pause/cls")`
+#### 5. `<cmath>`/`<climits>`/`<cstdlib>`(数值相关: 常量、绝对值、类型转换)
+##### 5.1 `<climits>` ：
++ 5.1-1 `std::INT_MAX`（int 最大值）
++ 5.1-2 `std::INT_MIN`（int 最小值）
++ 5.1-3 `std::UINT_MAX`（unsigned int 最大值）
+##### 5.2 `<cmath>` :
++ 5.2-1 `int std::abs(int x)` // 整数绝对值
++ 5.2-2 `double std::fabs(double x)` // 小数绝对值
++ 5.2-3 `double std::sqrt(double x)` // 平方根
++ 5.2-4 `double std::pow(double x , double y)` // x^y
+##### 5.3 `<cstdlib>` :
++ 5.3-1 `int std::atoi(const char* c)` // 字符串转整数 
++ 5.3-2 `std::system("pause/cls")`
 
 ## 二、 *数据*
 #### 1. 基本数据
@@ -108,17 +102,8 @@ scanf("%o/%x/%d", &num)
 
 ## 三、*基础结构*
 #### 1. 顺序
-#### 2. 循环
-##### 2.1 `for`
-```cpp
-for(int i = 0 , j = 10 ; i < n ; i++ , j--){}
-for(auto &c : str){} //需要修改原始值的是时候用'&'，若仅需遍历输出可以不加（但是会拷贝）
-for(const int &a : arr){} //只读不改，避免拷贝
-```
-##### 2.2 `while`/`do while`
-##### 2.3 `break`/`continue`/`goto`
-#### 3. 选择
-##### 3.1 `switch`
+#### 2. 选择
+##### 2.1 `switch`
 ```cpp
 switch(choice)
 {
@@ -134,4 +119,25 @@ default:
   break;
 }
 ```
-##### 3.2 `if`/`else if`/`else`
+##### 2.2 `if`/`else if`/`else`
+#### 3. 循环
+##### 3.1 `for`
+```cpp
+for(int i = 0 , j = 10 ; i < n ; i++ , j--){}
+for(auto &c : str){} //需要修改原始值的是时候用'&'，若仅需遍历输出可以不加（但是会拷贝）
+for(const int &a : arr){} //只读不改，避免拷贝
+```
+##### 3.2 `while`/`do while`
+#### 4. 跳转
+##### 4.1 `break`
+##### 4.2 `continue`
+##### 4.3 `goto`
+
+
+
+
+
+
+
+
+
