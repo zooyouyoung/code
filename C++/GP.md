@@ -113,7 +113,6 @@ int main() {
 ```
 #### 3. Nested Template(模板的嵌套使用)
 ```cpp
-vector<vector> point;
 ```
 
 ## 二、STL
