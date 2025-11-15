@@ -1,6 +1,75 @@
 # BASICS 
 
-## 一、 *Header Files*
+## 一、 Precessing
+### *Macro*
+#### 1. `#include<>/#include""`
+#### 2. `#define`(宏定义)
++ 作用：定义**无参/带参宏**，实现文本替换
++ 格式：`#define PI 3.14`、`#define ADD(a,b) (a)+(b)`(a,b要"()")
+#### 3. `#undef`
++ 作用：取消之前定义的宏，之后代码中该宏名不再生效（避免宏污染后续代码）
++ 格式：#undef 宏名（无替换文本，直接取消）
+#### 4. `#ifdef`/`#ifndef`/`#else`/`#endif`
++ 作用：根据**宏是否已定义**，决定某段代码是否参与编译（仅保留满足条件的代码，其他代码预处理时直接删除，减少最终可执行文件大小）
++ 格式：
+
+(1) `#ifdef 宏名`（宏已定义，则编译代码）
+```cpp
+#define DEBUG // 定义DEBUG宏（开启调试模式）
+int main() {
+    int a = 10;
+    // 条件编译：若DEBUG已定义，编译以下代码（调试时打印变量）
+    #ifdef DEBUG
+        cout << "调试模式：a=" << a << endl; // 会编译，输出a=10
+    #else
+        cout << "发布模式" << endl; // 不编译
+    #endif // 结束条件编译
+    return 0;
+}
+```
+(2) `#ifndef 宏名`（宏未定义，则编译代码，常用于防止头文件重复包含）
+```cpp
+// 自定义头文件 my_header.h
+#ifndef MY_HEADER_H // 若MY_HEADER_H未定义，(if no define)则进入
+#define MY_HEADER_H // 定义MY_HEADER_H，下次再包含时会跳过
+#define MAX 200
+void func();
+
+#endif // 结束条件编译
+return 0;
+```
+#### 5. `#if`/`#elif`/`#else`/`#endif`(数值条件编译,按数值条件决定是否编译)
++ 作用：判断 “数值表达式” 的真假（非 0 为真，0 为假），决定代码是否编译（比 #ifdef 更灵活，支持数值比较）
++ 格式：`#if 数值表达式`（表达式必须是编译期常量，不能是运行时变量）
+```cpp
+#define VERSION 3 // 定义版本号（编译期常量）
+int main() {
+    #if VERSION == 1
+        cout << "版本1：基础功能" << endl;
+    #elif VERSION == 2
+        cout << "版本2：新增查询功能" << endl;
+    #elif VERSION == 3
+        cout << "版本3：新增修改和删除功能" << endl; // 编译后输出这句
+    #else
+        cout << "未知版本" << endl;
+    #endif // 结束条件编译
+    return 0;
+}
+```
+#### 6. `#error`
++ 作用：强制报错，检测非法条件 
++ 格式：`#error 错误提示信息`(错误提示信息不加"")
+#### 7. 预定义宏
+|预定义宏|核心作用|类型|代码实例（输出效果）|
+|:---:|--------|:----:|--------|
+|`__FILE__`|返回当前源文件的 “完整路径 + 文件名”|字符串常量|cout << __FILE__ → D:\code\test.cpp|
+|`__LINE__`|返回当前代码所在的 “行号”|整数常量|cout << __LINE__ → 8（假设代码在第 8 行）|
+|`__DATE__`|返回编译时的 “日期”|字符串常量|cout << __DATE__ → Oct 26 2024|
+|`__TIME__`|返回编译时的 “时间”|字符串常量|cout << __TIME__ → 15:30:45|
+|`__cplusplus`|返回 C++ 标准版本号（判断编译器是否支持 C++xx）|整数常量|cout << __cplusplus → 201703（C++17）|
+
+**ATTENTIONS** : 预定义宏的值是 “编译期确定” ，不是运行时动态变化的
+### *Header Files*
 #### 1.`<iostream>` : input/output;
 #### 2.`<cstdio>` : including：scanf()/printf()/...(c语言的all);
 #### 3. `<algorithm>`(提供算法，配合容器和数组使用) : 
@@ -75,7 +144,7 @@ scanf("%o/%x/%d", &num)
 ```
 
 
-## 二、 *Datas*
+## 二、 Datas
 #### 1. 基本数据
 |数据类型|关键字|字节|数据范围|易错点|
 |:---:|:-----:|:-:|---------------|--------------|
@@ -103,7 +172,7 @@ scanf("%o/%x/%d", &num)
 2. 字节数需考虑 **"内存对齐"**（如 struct {char c; int i;} 字节数是 8，不是 5）
 
 
-## 三、*代码的流程控制*
+## 三、Control Flow
 #### 1. 顺序
 #### 2. 选择
 ##### 2.1 `switch`
@@ -161,7 +230,8 @@ goto flag;
 ##### 4.4 `return`
 作用：跳出当前函数，若函数有返回值则返回函数值
 
-## 四、*Functions*
+## 四、Functions
+### 
 
 
 
