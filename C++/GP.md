@@ -126,86 +126,76 @@ pop_back()； //末尾删除
 ```
 ***
 #### 1.1 string
-##### 1.1-1构造函数：
++ 1.1-1 构造函数：
 ```cpp
-string();
-string(const char* str);
-string(const string& str); //string str2(str1);
-string(int n , char c); //string(n , 'a');
+string(); // string str
+string(const char* str); || string(const string& str); //string str2(str1);
+string(int n , char c); //string str(n , 'a');
 ```
-##### 1.1-2赋值：
++ 1.1-2 赋值：
 ```cpp
 /*overload operator*/
-string& operator=(const char* s); //将char*类型字符串 赋给当前字符串
-string& operator=(const string& s); //将字符串s 赋给当前字符串
+string& operator=(const char* s); || string& operator=(const string& s); //将字符串s 赋给当前字符串
 string& operator=(char c); //将字符c 赋给当前字符串
 /*function of string , 写法：str.assign() */
-string& assign(const char* s); //将char*类型字符串s 赋给当前字符串
 string& assign(const char* s , int n); //将字符串s前n个字符 赋给当前字符串
-string& assign(const string& s); //将字符串s 赋给当前字符串
+string& assign(const string& s); || string& assign(const char* s); //将字符串s 赋给当前字符串
 string& assign(int n , char c); //用n个字符c赋给当前字符串
 ```
-##### 1.1-3拼接/截取：
++ 1.1-3 拼接/截取：
 ```cpp
 /*overload operator ， str1 += "vkk"*/
-string& operator+=(const char* s); 
-string& operator+=(const string& s); 
+string& operator+=(const char* s); || string& operator+=(const string& s); 
 string& operator+=(char c);
 /*function of string , 写法：str.append() */
-string& append(const char* s); //将char*类型字符串s 接到当前字符串末
-string& append(const char* s , int n); //将字符串s前n个字符 接到当前字符串末
-string& append(const string& s);
-string& append(const string& s , int pos , int n); //字符串s中从pos开始的n个字符接到字符串的结尾
+string& append(const char* s , int n); // 将字符串s前n个字符 接到当前字符串末
+string& append(const string& s); || string& append(const char* s); // 将字符串s 接到当前字符串末
+string& append(const string& s , int pos , int n); // 字符串s中从pos开始的n个字符接到字符串的结尾
 
 /*function of string , 写法：str.substr() */
 string& substr(int pos , int n) const //从pos开始，截取n个字符
 ```
-##### 1.1-4查找：
++ 1.1-4查找：
 ```cpp
 /*function of string , 写法：str.find() */
-int find(const string& str, int pos = 0) const; // 查找 str 第一次出现位置，从 pos 开始查找
-int find(const char* s, int pos = 0) const; // 查找 s 第一次出现位置，从 pos 开始查找
+int find(const char* str, int pos = 0) const; || int find(const string& str, int pos = 0) const; // 查找 str 第一次出现位置，从 pos 开始查找
 int find(const char* s, int pos, int n) const; // 从 pos 位置查找 字符串s 的前 n 个字符第一次位置
 int find(const char c, int pos = 0) const; // 查找字符 c 第一次出现位置
 /*function of string , 写法：str.rfind() */
-int rfind(const string& str, int pos = npos) const; // 查找 str 最后一次位置，从 pos 开始查找
-int rfind(const char* s, int pos = npos) const; // 查找 s 最后一次出现位置，从 pos 开始查找
+int rfind(const string& str, int pos = npos) const; || int rfind(const char* str, int pos = npos) const; // 查找 str 最后一次位置，从 pos 开始查找
 int rfind(const char* s, int pos, int n) const; // 从 pos 查找 s 的前 n 个字符最后一次位置
 int rfind(const char c, int pos = 0) const; // 查找字符 c 最后一次出现位置
 ```
-##### 1.1-5替换：
++ 1.1-5 替换：
 ```cpp
 /*function of string , 写法：str.replace() */
-string& replace(int pos, int n, const string& str); // 替换从 pos 开始 n 个字符为字符串 str
-string& replace(int pos, int n, const char* s); // 替换从 pos 开始的 n 个字符为字符串 s(n长度的字符串整个被replace为字符串s)
+string& replace(int pos, int n, const string& str); || string& replace(int pos, int n, const char* s); // 替换从 pos 开始的 n 个字符为字符串 s(n长度的字符串整个被replace为字符串s)
 ```
-##### 1.1-6比较（按字符的ASCII码进行比较）：
-1. `=` : return 0;
-2. `>` : return 1;
-3. `<` : return -1;
++ 1.1-6 比较（按字符的ASCII码进行比较）：
+> 1. `=` : return 0;
+> 2. `>` : return 1;
+> 3. `<` : return -1;
 ```cpp
 /*overload operator , ==/!=/</>/... */
 /*function of string , 写法：str.compare() */
-int compare(const string& s) const; //与字符串s比较
-int compare(const char* s) const;
+int compare(const char* s) const; || int compare(const string& s) const; //与字符串s比较
 ```
-##### 1.1-7存取：
++ 1.1-7 存取：
 ```cpp
 /*overload operator ， str1[] */
 char& operator[](int n);
 /*function of string , 写法：str.at() */
 char& at(int n); //获取字符
 ```
-##### 1.1-8插入/删除：
++ 1.1-8 插入/删除：
 ```cpp
 /*function of string , 写法：str.insert() */
-string& replace(int pos, const char* s); //插入字符串s
-string& replace(int pos, const string& s); //插入字符串s
+string& replace(int pos, const char* s); || string& replace(int pos, const string& s); //插入字符串s
 string& replace(int pos, int n, char c); //从指定位置pos开始插入n个字符c
 /*function of string , 写法：str.erase() */
 string& erase(int pos, int n = npos); // 删除从pos开始的n个字符
 ```
-##### 扩展：输入/输出(不属于string容器的)：
++ 扩展：输入/输出(不属于string容器的)：
 ```cpp
 /* 输入包括空格，更加通用 */
 cin.get(char& ch);
@@ -218,9 +208,119 @@ putchar();
 cout.put(char ch);
 ```
 ***
-#### 1.2 vector
+#### 1.2 vector(单端数组)
++ 1.2-1 构造函数
+```cpp
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int main() {
+vector<T> vec ; // 默认构造函数
+vector<T> vec(n,elem); // 将n个elem赋给vec
+vector<T> vec2(vec1.begin() , vec1.end()); // 将vec1的[begin(),end())的元素拷贝给vec2
+vector<T> vec2(const vector& vec1); // 拷贝构造
+}
+```
++ 1.2-2 赋值：
+```cpp
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int main() {
+vector<T> vec1 = {1,2,3}
+vector<T> vec2;
+vec2 = vec1; // operator=
+vec2.assign(vec1.begin(),vec1.end());  
+vec2.assign(n , elem);
+}  
+```
++ 1.2-3 容量/大小
+```cpp
+vector<T> vec;
+vec.empty();
+vec.capacity(); // 容量
+vec.size(); // 大小
+vec.resize(int n ，elem); // 重新指定大小为n,如果容器变长以elem填充(没写elem,以0填充)，如果变短删除末尾的数
+```
++ 1.2-4 插入/删除
+```cpp
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int main() {
+vector<T> vec = {1，2，3，4，5};
+vec.push_back(elem); // 尾部插入elem
+vec.pop_back(); 
+vec.insert(vec.begin() , n , elem) // 从vec的vec.begin()插入n个elem;(没n默认1个) 
+vec.erase(vec.begin() , vec.begin()+3); // 从vec.begin()删到vec.begin()+3,可以只有vec.begin()(删一个)
+vec.clear();
+}
+```
++ 1.2-5 存取
+```cpp
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int main() {
+vector<T> vec = {1,2,3,4};
+vector<T> vec1 = vec[0] // operator[]
+vec.at(int idx); // 返回[idx]元素 
+vec.front(); // 返回第一个元素(0)
+vec.back(); // 返回最后一个元素
+}
+```
++ 1.2-6 互换
+```cpp
+/* swap()的巧用->收缩内存空间 */
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int main() {
+    vector<int> vec = {10, 20, 30, 40, 50};
+    vec.push_back(60);
+    vec.push_back(70);
+    vec.erase(vec.begin() + 2, vec.end()); // 保留10,20，size=2, capacity=7（假设扩容后）
+    cout << "删除后：size=" << vec.size() << ", capacity=" << vec.capacity() << endl;
+
+    // 步骤1：创建临时 vector，仅包含原 vec 的有效元素（capacity=2）
+    vector<int> temp_vec(vec.begin(), vec.end()); 
+    cout << "临时vec：size=" << temp_vec.size() << ", capacity=" << temp_vec.capacity() << endl; // size=2, cap=2
+
+    // 步骤2：交换原 vec 和临时 vec
+    vec.swap(temp_vec); 
+    // 交换后：原vec的size=2, cap=2；temp_vec的size=2, cap=7（冗余内存转移到temp_vec）
+
+    cout << "收缩后：size=" << vec.size() << ", capacity=" << vec.capacity() << endl; // size=2, cap=2
+
+    return 0;
+}
+```
++ 1.2-7 预留空间
+```cpp
+reserve(int len); // 开辟空间，但是数据没初始化
+```
 ***
-#### 1.3 deque
+#### 1.3 deque(双端数组)
++ 1.3-1 构造函数
++ 1.3-2 赋值
++ 1.3-3 大小
++ 1.3-4 插入/删除
+```cpp
+deque<T> deq;
+deq.pop_front();
+deq.push_front(n);
+```
++ 1.3-5 存取
+**以上内容（1.3-1到1.3-5）均可参考`vector`；**
++ 1.3-6 排序
+```cpp
+sort(iterator beg , iterator end);
+```
 ***
 #### 1.4 list
 ***
