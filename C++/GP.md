@@ -325,20 +325,27 @@ int main() {
 ```cpp
 #include <iostream>
 #include <vector>
-#include <algorithm>
+#include <list>
 using namespace std;
 
 int main() {
-    int a = 10, b = 20;
-    swap(a, b);
-    cout << "交换后a=" << a << ", b=" << b << endl; // 20,10
-    /* 交换两个vector */
-    vector<int> vec1 = {1,2,3}, vec2 = {4,5,6};
-    swap(vec1, vec2);
-    cout << "交换后vec1：";
-    for (int num : vec1) cout << num << " "; // 4 5 6
-    cout << "\n交换后vec2：";
-    for (int num : vec2) cout << num << " "; // 1 2 3
+    /* 1. 随机访问迭代器（vector）：支持跳跃访问 */
+    vector<int> vec = {1,2,3};
+    vector<int>::iterator vec_it = vec.begin();
+    vec_it += 2; // 跳跃2步，指向3（list迭代器不支持此操作）
+    cout << "vector迭代器跳跃访问：" << *vec_it << endl; // 输出：3
+
+    /* 2. 双向迭代器（list）：仅支持++/--，不支持跳跃 */
+    list<int> lst = {10,20,30};
+    list<int>::iterator lst_it = lst.begin();
+    // lst_it += 2; // 报错！list迭代器无跳跃能力
+    advance(lst_it, 2); // 需用advance函数移动2步，指向30
+    cout << "list迭代器移动访问：" << *lst_it << endl; // 输出：30
+
+    /* 3. 常量迭代器（const_iterator）：只读，不允许修改元素 */
+    vector<int>::const_iterator const_vec_it = vec.begin();
+    // *const_vec_it = 100; // 报错！常量迭代器不能修改元素
+    cout << "常量迭代器只读访问：" << *const_vec_it << endl; // 输出：1
 
     return 0;
 }
@@ -352,6 +359,34 @@ int main() {
 |输出迭代器|只写，只能向前遍历(++)，不支持(--)|所有容器(少用，算法内部用)|
 |双向迭代器|可读可写，支持向前(++)和向后(--)遍历|`list`、`map`、`set`|
 |随机访问迭代器|可读可写，支持*双向遍历*和*跳跃访问*（+n、-n）|`vector`、`array`（最常用）|
+```cpp
+#include <iostream>
+#include <vector>
+#include <list>
+using namespace std;
+
+int main() {
+    /* 1. 随机访问迭代器（vector）：支持跳跃访问 */
+    vector<int> vec = {1,2,3};
+    vector<int>::iterator vec_it = vec.begin();
+    vec_it += 2; // 跳跃2步，指向3（list迭代器不支持此操作）
+    cout << "vector迭代器跳跃访问：" << *vec_it << endl; // 输出：3
+
+    /* 2. 双向迭代器（list）：仅支持++/--，不支持跳跃 */
+    list<int> lst = {10,20,30};
+    list<int>::iterator lst_it = lst.begin();
+    // lst_it += 2; -> 报错！list迭代器无跳跃能力
+    advance(lst_it, 2); // 需用advance函数移动2步，指向30
+    cout << "list迭代器移动访问：" << *lst_it << endl; // 输出：30
+
+    /* 3. 常量迭代器（const_iterator）：只读，不允许修改元素 */
+    vector<int>::const_iterator const_vec_it = vec.begin();
+    // *const_vec_it = 100; -> 报错！常量迭代器不能修改元素
+    cout << "常量迭代器只读访问：" << *const_vec_it << endl; // 输出：1
+
+    return 0;
+}
+```
 ### 4. Functors
 ### 5. Adapters
 ### 6. Allocators
