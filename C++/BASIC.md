@@ -2,8 +2,25 @@
 ## 一、 *头文件*
 #### 1.`<iostream>` : input/output;
 #### 2.`<cstdio>` : including：scanf()/printf()/...(c语言的all);
-#### 3.`<iomanip>`与常用函数 ：
-##### 3.1 小数精度与格式控制（最常用）
+#### 3. `<algorithm>`(提供算法，配合容器和数组使用) : 
+- 排序:`std::sort()` // sort(nums.begin(), nums.end())
+- 反转:`std::reverse()` // reverse(s.begin(), s.end())
+- 查找:`std::find()` // find(nums.begin(), nums.end(), 5)
+#### 4. `<cmath>`/`<climits>`/`<cstdlib>`(数值相关: 常量、绝对值、类型转换)
+##### 4.1 `<climits>` ：
++ 4.1-1 `std::INT_MAX`（int 最大值）
++ 4.1-2 `std::INT_MIN`（int 最小值）
++ 4.1-3 `std::UINT_MAX`（unsigned int 最大值）
+##### 4.2 `<cmath>` :
++ 4.2-1 `int std::abs(int x)` // 整数绝对值
++ 4.2-2 `double std::fabs(double x)` // 小数绝对值
++ 4.2-3 `double std::sqrt(double x)` // 平方根
++ 4.2-4 `double std::pow(double x , double y)` // x^y
+##### 4.3 `<cstdlib>` :
++ 4.3-1 `int std::atoi(const char* c)` // 字符串转整数 
++ 4.3-2 `std::system("pause/cls")`
+#### 5.`<iomanip>`与常用函数 ：
+##### 5.1 小数精度与格式控制（最常用）
 - `setprecision(int n)` ：核心控制 “数字精度”，需搭配`fixed`/`scientific`使用，否则控制 “有效数字总数(小数点前后)”
 - `fixed` ：固定小数格式（强制按 “整数.小数” 形式输出），常与 setprecision 搭配控制小数位数
 - `scientific` ：科学计数法格式(如 3.14e+00),适合极大/极小的数，同样需搭配`setprecision()`控制精度
@@ -25,7 +42,7 @@ cout << resetiosflags(ios::fixed) << setprecision(3) << 123.456; // 重置后，
 printf("%.2f\n", 123.456); // 先输出 123.46（2 位小数）
 printf("%g\n", 123.456); // 再用`%g`覆盖，输出 123.456（默认有效数字）
 ```
-##### 3.2 输出对齐控制（排版常用）与 填充字符控制（配合对齐 / 宽度）
+##### 5.2 输出对齐控制（排版常用）与 填充字符控制（配合对齐 / 宽度）
 - `setw(int n)`：设置 “下一个输出项” 的宽度(**默认右对齐**)
 - `left` ：设置**“后续输出”**左对齐（配合 setw 使用，覆盖默认右对齐）
 - `right` ：重置为默认的右对齐（取消 left 效果）
@@ -40,7 +57,7 @@ printf("%5d\n", 123); // 右对齐，输出 "  123"(默认)
 printf("%-5d\n", 123); // '-'左对齐，输出 "123  "
 printf("%05d\n", 123); // 0 填充，输出 "00123"
 ```
-##### 3.3 进制转换控制（配合整数输出）
+##### 5.3 进制转换控制（配合整数输出）
 - `oct` ：将后续整数输出为八进制（默认带前缀 0，如 25 输出 031）
 - `hex` ：将后续整数输出为十六进制（默认带前缀 0x，小写；配合 uppercase 可转大写）
 - `dec` ：重置为默认的十进制输出（取消 oct/hex 效果）
@@ -54,24 +71,7 @@ cout << dec << num; // 重置十进制：25
 - C语言中靠`printf`格式符直接指定 : `%o`（八进制）、`%x`（十六进制小写）、`%X`（十六进制大写）、`%d`（十进制）
 ```c
 scanf("%o/%x/%d", &num)
-```
-#### 4. `<algorithm>`(提供算法，配合容器和数组使用) : 
-- 排序:`std::sort()` // sort(nums.begin(), nums.end())
-- 反转:`std::reverse()` // reverse(s.begin(), s.end())
-- 查找:`std::find()` // find(nums.begin(), nums.end(), 5)
-#### 5. `<cmath>`/`<climits>`/`<cstdlib>`(数值相关: 常量、绝对值、类型转换)
-##### 5.1 `<climits>` ：
-+ 5.1-1 `std::INT_MAX`（int 最大值）
-+ 5.1-2 `std::INT_MIN`（int 最小值）
-+ 5.1-3 `std::UINT_MAX`（unsigned int 最大值）
-##### 5.2 `<cmath>` :
-+ 5.2-1 `int std::abs(int x)` // 整数绝对值
-+ 5.2-2 `double std::fabs(double x)` // 小数绝对值
-+ 5.2-3 `double std::sqrt(double x)` // 平方根
-+ 5.2-4 `double std::pow(double x , double y)` // x^y
-##### 5.3 `<cstdlib>` :
-+ 5.3-1 `int std::atoi(const char* c)` // 字符串转整数 
-+ 5.3-2 `std::system("pause/cls")`
+```  
 
 ## 二、 *数据*
 #### 1. 基本数据
@@ -105,21 +105,30 @@ scanf("%o/%x/%d", &num)
 #### 2. 选择
 ##### 2.1 `switch`
 ```cpp
-switch(choice)
-{
-case choice1:
-  break;
-case choice2:
-  break;
-case choice3:
-  break;
-case choice4:
-  break;
-default:
-  break;
+/* switch与enum的使用 */
+int main() {
+    // 定义枚举：表示“订单状态”，每个枚举值对应一个整数（默认0开始，可自定义）
+    enum OrderStatus {
+        PENDING = 1,  // 待支付（自定义值1）
+        PAID = 2,     // 已支付
+        SHIPPED = 3,  // 已发货
+        DELIVERED = 4 // 已送达
+    };
+    OrderStatus status; // 定义枚举类型变量
+    cout << "请输入订单状态（1.待支付 2.已支付 3.已发货 4.已送达）：" << endl;
+    cin >> (int)status; // 枚举需强转为int接收输入
+    switch (status) {
+        case PENDING: cout << "订单状态：待支付，需尽快付款！" << endl; break;
+        case PAID: cout << "订单状态：已支付，等待发货！" << endl; break;
+        case SHIPPED: cout << "订单状态：已发货，预计3天送达！" << endl; break;
+        case DELIVERED: cout << "订单状态：已送达，感谢使用！" << endl; break;
+        default: cout << "状态输入错误！" << endl; break;
+    }
+    return 0;
 }
 ```
 ##### 2.2 `if`/`else if`/`else`
+......
 #### 3. 循环
 ##### 3.1 `for`
 ```cpp
@@ -130,8 +139,10 @@ for(const int &a : arr){} //只读不改，避免拷贝
 ##### 3.2 `while`/`do while`
 ```cpp
 while(1/true){};
-while(cin >> str);
+while(cin >> str){};
 while(int n = 0 ; n < 12){}; // while(循环变量的定义+初始化)"C++17 及以上支持",变量仅在循环范围内有效(避免污染外部代码)
+```
+**attention**:表达式不能是 “非整数型”：e.g:switch(3.14)（double）、switch("abc")（string),都会编译报错，只能用`int`、`char`、`enum`等整数型
 #### 4. 跳转
 ##### 4.1 `break`
 作用：跳出当前循环
