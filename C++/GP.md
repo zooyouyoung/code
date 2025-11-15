@@ -1,4 +1,5 @@
 # Generic Programming
+
 ## 一、Template/Class
 ### 1. Function Template(函数模板)
 + 定义格式 ：`template <typename T1, typename T2,...>` `(typename`<=>`class`)
@@ -114,6 +115,7 @@ int main() {
 ```cpp
 vector<vector> point;
 ```
+
 ## 二、STL
 ### 1. Containers
 ```cpp
@@ -217,16 +219,139 @@ cout.put(char ch);
 ```
 ***
 #### 1.2 vector
-
-
-
-
-
 ***
-
-
+#### 1.3 deque
+***
+#### 1.4 list
+***
+#### 1.5 map
+***
+#### 1.6 set
+***
 ### 2. Algorithms
++ `sort()`(排序)
+```cpp
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+// 自定义排序规则：降序（函数形式）
+bool cmp_desc(int a, int b) {
+    return a > b; // a>b时，a排在b前面（降序）
+}
+int main() {
+    vector<int> vec = {3,1,4,1,5};
+    /* 1. 默认排序：升序（依赖元素的'<'运算符） */
+    sort(vec.begin(), vec.end());
+    cout << "升序排序后：";
+    for (int num : vec) cout << num << " "; // 输出：1 1 3 4 5
+    /* 2. 自定义排序：降序（用cmp_desc函数） */
+    sort(vec.begin(), vec.end(), cmp_desc);
+    cout << "\n降序排序后：";
+    for (int num : vec) cout << num << " "; // 输出：5 4 3 1 1
+    /* 3. 用函数对象 "greater<int>()" */
+    sort(vec.begin(), vec.end(), greater<int>());
+    cout << "\n函数对象降序排序后：";
+    for (int num : vec) cout << num << " "; // 输出：5 4 3 1 1
+
+    return 0;
+}
+```
++ `find()`(查找)
+```cpp
+#include <iostream>
+#include <vector>
+#include <string>
+#include <algorithm>
+using namespace std;
+
+int main() {
+    vector<int> vec = {10,20,30};
+    vector<int>::iterator it1 = find(vec.begin(), vec.end(), 20);
+    if (it1 != vec.end()) {
+        cout << "找到20，索引：" << it1 - vec.begin() << endl; 
+    }
+    
+    vector<string> str_vec = {"apple", "banana", "orange"};
+    auto it2 = find(str_vec.begin(), str_vec.end(), "banana");
+    if (it2 != str_vec.end()) {
+        cout << "找到字符串：" << *it2 << endl;
+    }
+
+    return 0;
+}
+```
++ `reverse()`(反转)
+```cpp
+#include <iostream>
+#include <vector>
+#include <string>
+#include <algorithm>
+using namespace std;
+
+int main() {
+    /* 1. 反转vector */
+    vector<int> vec = {1,2,3,4,5};
+    reverse(vec.begin(), vec.end());
+    cout << "反转后vector：";
+    for (int num : vec) cout << num << " "; // 输出：5 4 3 2 1
+    /* 2. 反转string */
+    string s = "hello";
+    reverse(s.begin(), s.end());
+    cout << "\n反转后string：" << s << endl; // 输出：olleh
+
+    return 0;
+}
+```
++ `count()`(计数)
+```cpp
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int main() {
+    vector<int> vec = {1,2,2,3,2,4};
+    /* 统计2出现的次数 */
+    int count_2 = count(vec.begin(), vec.end(), 2);
+    cout << "元素2出现的次数：" << count_2 << endl; // 输出：3
+
+    return 0;
+}
+```
++ `swap()`(交换): 
+不交换容器对象本身的地址，仅交换内部存储数据的指针、大小等元信息
+```cpp
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int main() {
+    int a = 10, b = 20;
+    swap(a, b);
+    cout << "交换后a=" << a << ", b=" << b << endl; // 20,10
+    /* 交换两个vector */
+    vector<int> vec1 = {1,2,3}, vec2 = {4,5,6};
+    swap(vec1, vec2);
+    cout << "交换后vec1：";
+    for (int num : vec1) cout << num << " "; // 4 5 6
+    cout << "\n交换后vec2：";
+    for (int num : vec2) cout << num << " "; // 1 2 3
+
+    return 0;
+}
+```
 ### 3. Iterators
+迭代器本质是 “模拟指针的类”，统一了不同容器的遍历接口
+#### 3.1 4种常用迭代器类型
+|迭代器类型|核心功能|支持的容器|
+|-----|--------|-----|
+|输入迭代器|只读，只能向前遍历(++)，不支持(--)|所有容器(少用，算法内部用)|
+|输出迭代器|只写，只能向前遍历(++)，不支持(--)|所有容器(少用，算法内部用)|
+|双向迭代器|可读可写，支持向前(++)和向后(--)遍历|`list`、`map`、`set`|
+|随机访问迭代器|可读可写，支持*双向遍历*和*跳跃访问*（+n、-n）|`vector`、`array`（最常用）|
 ### 4. Functors
 ### 5. Adapters
 ### 6. Allocators
