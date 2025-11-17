@@ -598,42 +598,33 @@ int main() {
 }
 ```
 ### 4. Functors
-函数对象是 “重载了operator()的类",调用时像函数一样(e.g:`greater<int>()`)，核心用于定制算法的逻辑(`sort`的排序规则、`find_if`的查找条件)
-```cpp
-#include <iostream>
-#include <vector>
-#include <algorithm>
-using namespace std;
-
-/* 1. 自定义函数对象：查找“大于10的元素” */
-class GreaterThan10 {
-public:
-    /* 重载operator()：参数是容器元素，返回bool（满足条件返回true） */
-    bool operator()(int num) {
-        return num > 10;
-    }
-};
-
-int main() {
-    vector<int> vec = {5, 12, 8, 15, 3};
-
-    /* 2. 用函数对象定制find_if的查找条件（查找第一个>10的元素） */
-    /* GreaterThan10()：创建函数对象的临时实例 */
-    auto it = find_if(vec.begin(), vec.end(), GreaterThan10());
-    if (it != vec.end()) {
-        cout << "第一个大于10的元素：" << *it << endl; // 输出：12
-    }
-
-    /* 3. 用匿名函数（lambda，C++11及以上）简化（无需自定义类，更简洁） */
-    auto it2 = find_if(vec.begin(), vec.end(), [](int num) {
-        return num > 10; // 匿名函数，功能和GreaterThan10一致
-    });
-    if (it2 != vec.end()) {
-        cout << "lambda找到第一个大于10的元素：" << *it2 << endl; // 输出：12
-    }
-
-    return 0;
-}
-```
++ 函数对象是 “重载了函数操作符的类",调用时像函数一样(e.g:`greater<int>()`)，核心用于定制算法的逻辑。重载函数操作符`()`，行为类似函数的调用，也称为仿函数
+#### 4.1 遍历
++ 4.1-1 `for_each`
++ 4.1-2 `transform`
++ 4.1-3 `find`
+#### 4.2 查找
++ 4.2-1 `find_if`
++ 4.2-2 `adjacent_find`
++ 4.2-3 `binary_search`
++ 4.2-4 `count`
++ 4.2-5 `count_if`
+#### 4.3 排序
++ 4.3-1 `sort`
++ 4.3-2 `random_shuffle`
++ 4.3-3 `merge`
++ 4.3-1 `reverse`
+#### 4.4 拷贝/替换
++ 4.4-1 `copy`
++ 4.4-2 `replace`
++ 4.4-3 `replace_if`
++ 4.4-4 `swap`
+#### 4.5 算术生成
++ 4.5-1 `accumulate`
++ 4.5-2 `fill`
+#### 4.6 集合
++ 4.6-1 `set_intersection`
++ 4.6-2 `set_union`
++ 4.6-1 `set_difference`
 ### 5. Adapters
 ### 6. Allocators
