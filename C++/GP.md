@@ -613,7 +613,7 @@ int main() {
 + 4.3-1 `sort`
 + 4.3-2 `random_shuffle`
 + 4.3-3 `merge`
-+ 4.3-1 `reverse`
++ 4.3-4 `reverse`
 #### 4.4 拷贝/替换
 + 4.4-1 `copy`
 + 4.4-2 `replace`
@@ -625,6 +625,6 @@ int main() {
 #### 4.6 集合
 + 4.6-1 `set_intersection`
 + 4.6-2 `set_union`
-+ 4.6-1 `set_difference`
++ 4.6-3 `set_difference`
 ### 5. Adapters
 ### 6. Allocators
