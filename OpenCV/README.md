@@ -1,1 +1,33 @@
 # This is my OpenCV
+## BASIC of BASIC
+### 窗口和图片
++ `namedWindows("name" WINDOW_NORMAL/WINDOW_AUTOSIZE)`
++ `imshow("image name")`
++ `resizeWindow("name" ,width,height)`
++ `waitKey(0)`
++ `destroyAllWindows()`
++ `imread(path, flag)`: `flag`默认`IMAGE_COLOR`: 加载图片
++ `imwrite(name , img)`: 保存图片 
+### 视频
++ `VideoCapture()`
++ `read()`
++ `release()`
++ `VideoWriter(filename, int fourcc, double fps, Size frameSize, bool isColor = true)`: 输出文件/多媒体文件格式/帧率/分辨率
++ `write()`
+### 鼠标
++ `setMouseCallback(windowname, callback, userdata)`
++ `callback(event, x, y, flags, userdata)`: 鼠标操作/鼠标坐标x,y/鼠标键及组合键/
+
+## 色差空间及基础操作
+### 
+
+## 基本图形绘制
+## 图像的运算
+## 图形的进阶操作
+## 滤波
+## 形态学操作
+## 轮廓
+## 特征检测
+### 
+
+
