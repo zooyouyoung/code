@@ -7,7 +7,8 @@
 + `waitKey(0)`
 + `destroyAllWindows()`
 + `imread(path, flag)`: `flag`默认`IMAGE_COLOR`: 加载图片
-+ `imwrite(name , img)`: 保存图片 
++ `imwrite(filename, name , img)`: 保存图片
++ `clone()/copyTO()`
 ### 视频
 + `VideoCapture()`
 + `read()`
@@ -30,7 +31,10 @@
 <img src="./image/HSV-HSL.png" width="40%" height="40%">
 
 + YUV: 用于视频
-### 
+### 色彩空间转换
++ `zeros()`
++ `cvtColor(input_img, output_ret, flag)`: `COLOR_BGR2GRAY`/`COLOR_GRAY2BGR`/`COLOR_BGR2HSV`/`COLOR_HSV2BGR`;
++ `channels()`: 通道数
 ## 基本图形绘制
 ## 图像的运算
 ## 图形的进阶操作
