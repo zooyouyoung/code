@@ -21,8 +21,12 @@
 + `createTrackbar(Trackbar_name , windows_name, value, maxnum, callback, uerdata)`
 + `getTrackbarPos()`
 ## 色差空间及基础操作(RGB/HSV/YUV)
-### HSV: Hue(色相/色彩)/Saturation(饱和度)/Value(明度)
++ RGB: 
++ HSV: Hue(色相/色彩)/Saturation(饱和度)/Value(明度)
 <img src="./image/HSV.png" width="40%" height="40%">
+
++ HSL: Hue/Saturation/Ligthness
+<img src="./image/HSV-HSL.png" width="40%" height="40%">
 
 ## 基本图形绘制
 ## 图像的运算
