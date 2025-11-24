@@ -20,7 +20,8 @@
 ### TrackBar
 + `createTrackbar(Trackbar_name , windows_name, value, maxnum, callback, uerdata)`
 + `getTrackbarPos()`
-## 色差空间及基础操作(RGB/HSV/YUV)
+## 色彩空间及基础操作(RGB/HSV/YUV)
+### 色彩
 + RGB: 
 + HSV: Hue(色相/色彩)/Saturation(饱和度)/Value(明度)
 <img src="./image/HSV.png" width="25%" height="25%">
@@ -28,7 +29,8 @@
 + HSL: Hue/Saturation/Ligthness
 <img src="./image/HSV-HSL.png" width="40%" height="40%">
 
-+ YUV: 视频
++ YUV: 用于视频
+### 
 ## 基本图形绘制
 ## 图像的运算
 ## 图形的进阶操作
