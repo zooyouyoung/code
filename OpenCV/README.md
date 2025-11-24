@@ -17,9 +17,11 @@
 ### 鼠标
 + `setMouseCallback(windowname, callback, userdata)`
 + `callback(event, x, y, flags, userdata)`: 鼠标操作/鼠标坐标x,y/鼠标键及组合键/
-
-## 色差空间及基础操作
-### 
+### TrackBar
++ `createTrackbar(Trackbar_name , windows_name, value, maxnum, callback, uerdata)`
++ `getTrackbarPos()`
+## 色差空间及基础操作(RGB/HSV/YUV)
+### HSV: Hue(色相/色彩)/Saturation(饱和度)/Value(明度)
 
 ## 基本图形绘制
 ## 图像的运算
